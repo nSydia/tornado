@@ -9,3 +9,5 @@
 ![alt text](https://github.com/rebellionil/tornado/blob/master/screenshots/Screenshot_2017-08-08-16-10-32.png)
 ![alt text](https://github.com/rebellionil/tornado/blob/master/screenshots/Screenshot_2017-08-08-16-13-10-1.png)
 ![alt text](https://github.com/rebellionil/tornado/blob/master/screenshots/Screenshot_2017-08-10-22-53-11.png)
+![alt text](https://github.com/rebellionil/tornado/blob/master/screenshots/Screenshot%20at%202017-08-11%2019-34-55.png)
+![alt text](https://github.com/rebellionil/tornado/blob/master/screenshots/scr.png)
