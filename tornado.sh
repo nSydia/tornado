@@ -2,10 +2,10 @@
 # Note :-
 #   Don't try to read all this shit alone cuz i didn't put any comment there .. happy hacking :"" .
 
-trap " echo "" ; kill `pgrep xterm` 2> /dev/null 1> /dev/null ; exit " SIGINT SIGTERM
+trap " echo "" ; kill `pgrep xterm` 2> /dev/null 1> /dev/null ; sed -i 's/redir_command/#redir_command/g' /etc/ettercap/etter.conf ; exit " SIGINT SIGTERM
 normal='\e[0m' ; blue='\e[1;94m' ; red='\e[1;31m' ; yellow='\e[1;33m' ; ul='\e[1;4m' ; purp='\e[1;35m' ; green='\e[1;32m' ; white='\e[97m'
 date=$(date | awk {'print $4 '})
-resize -s 36 136 2> /dev/null 1> /dev/null
+resize -s 44 106 2> /dev/null 1> /dev/null
 clear
 echo -e "$white"
 echo -e '                 ████████╗ ██████╗ ██████╗ ███╗   ██╗ █████╗ '"${red}"'██████╗  ██████╗ ' "$white"
@@ -239,7 +239,11 @@ function capture_creds {
    fi
    if [[ $tshark == "on" ]] || [[ $driftnet == "on" ]] ; then
       echo -e "${blue}█ Saving captured packets at ${date}_output/tshark.pcap"
-      xterm -geometry 90x10+0-0 -fg white -e "tshark -i $interface -w tshark.pcap" &
+      if [[ $silent == 'on' ]] ; then
+         tshark -i wlan0 -w tshark.pcap 2> /dev/null 1> /dev/null &
+      else
+         xterm -geometry 90x10+0-0 -fg white -e "tshark -i $interface -w tshark.pcap" &
+      fi
    fi
    if [[ $tcpdump == "on" ]] ; then
       echo -e "${blue}█ Enable TCPdump"
@@ -362,6 +366,7 @@ while true ; do
            echo -e "${yellow}█ Restore etter.conf default settings"
            rm /etc/ettercap/etter.conf
            mv /etc/ettercap/etter.conf.copy /etc/ettercap/etter.conf
+           sed -i 's/redir_command/#redir_command/g' /etc/ettercap/etter.conf
        fi
        if [[ $dnsspoof == "on" ]] ; then
           cd ../../dns2proxy
