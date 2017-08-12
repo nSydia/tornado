@@ -5,7 +5,7 @@
 trap " echo "" ; kill `pgrep xterm` 2> /dev/null 1> /dev/null ; sed -i 's/redir_command/#redir_command/g' /etc/ettercap/etter.conf ; exit " SIGINT SIGTERM
 normal='\e[0m' ; blue='\e[1;94m' ; red='\e[1;31m' ; yellow='\e[1;33m' ; ul='\e[1;4m' ; purp='\e[1;35m' ; green='\e[1;32m' ; white='\e[97m'
 date=$(date | awk {'print $4 '})
-resize -s 44 106 2> /dev/null 1> /dev/null
+resize -s 44 117 2> /dev/null 1> /dev/null
 clear
 echo -e "$white"
 echo -e '                       ████████╗ ██████╗ ██████╗ ███╗   ██╗ █████╗ '"${red}"'██████╗  ██████╗ ' "$white"
@@ -68,6 +68,7 @@ if [[ $1 == '-I' ]] || [[ $1 == '--iface-info' ]] ; then
          interface=$i
          class=$(ip -d route | grep $interface | grep / | awk {' print $2 '} | cut -d '/' -f2)
          ifconfig $interface | grep -e $interface -e ether -e inet | grep -v inet6 | cut -d 'f' -f 1 | sed "s/$interface:/|||| $interface/g" | sed 's/  /\n/g' | uniq -u | grep -ve txqueuelen -ve Ethernet | sed 's/inet/Local-IP/g' | sed 's/netmask/Subnetmask/g' | sed 's/broadcast/Broadcast/g' | sed 's/ether/MAC-address/g' | column -ts ' ' | sed 's/|//g' | sed "s/$interface/${interface}\/${class}\n/g"
+         ip -d route | grep $interface | grep via | awk {' print "Gateway      " $4 '}
          echo ""
       fi
    done
