@@ -62,12 +62,28 @@ bash setup.sh
  └════════════════════════════════════════════════════════════════════════════════════════════════════════════════┘ 
 
 ```
+```
+Version release: 0.2-STABLE
+Author: Magdy Moustafa  [ rebellionil ]
+Distros Supported: Linux Ubuntu, Kali, Debian, BackBox, Parrot OS
+```
+## LEGAL DISCLAMER
+```
+The author does not hold any responsibility for the bad use of this tool,
+remember that attacking targets without prior consent it's illegal and punished by law.
+```
+## Tornado limitations
+```
+1º - Tornado will fail if target system its protected againt arp poison atacks
+2º - target system sometimes needs to clear the net cache for arp poison to be effective
+3º - many attacks described in tornado may be dropped by the target HSTS detection sys.
+```
+## Dependencies
+```
+nmap, iptraf-ng, sslstrip2, dns2proxy, mitmproxy, burpsuite, tshark, tcpdump, ettercap, etherape, urlsnarf, arpspoof, driftnet, arp-scan
+```
 
-
-### Thanks for Leonardo Nve
-The orginal dns2proxy : https://github.com/LeonardoNve/dns2proxy
-
-A mirror of the original SSLstrip+ : https://github.com/byt3bl33d3r/sslstrip2
+### EOF
 
 
 
