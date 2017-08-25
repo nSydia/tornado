@@ -6,7 +6,7 @@ git clone https://github.com/rebellionil/tornado
 cd tornado 
 bash setup.sh
 ```
-### ```./tornado.sh -h ``` output 
+### ```~# ./tornado.sh -h ``` output 
 ```
 
                        ████████╗ ██████╗ ██████╗ ███╗   ██╗ █████╗ ██████╗  ██████╗  
