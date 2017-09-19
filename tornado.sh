@@ -45,10 +45,10 @@ if [[ $1 == "-h" ]] || [[ $1 == "" ]] ; then
    echo " ║ -x --burp                   => intercept captured traffic with burpsuite                                       ║ "
    echo " ║ -X --mitmproxy              => intercept captured traffic with MITMproxy                                       ║ "
    echo " ║ -H --hsts                   => intercept captured traffic with sslstrip+,dns2proxy                             ║ "
-   echo " ║ -w --mitmproxy-args         => customize mitmproxy performance [must be the last option when use]              ║ "
-   echo " ║ -l --js-url    <js URL>     => inject JS url in page content                                                   ║ "
-   echo " ║ -L --js-code   <js code>    => inject JS code from JS file in page content [must be one line]                  ║ "
-   echo " ║ -G --js-keylogger           => inject JS keylogger in html pages                                               ║ "
+   echo " ║ -w --mitmproxy-args         => customize mitmproxy performance                                                 ║ "
+   echo " ║ -l --js-url    <js URL>     => inject JS url in page content                                 [ HTTP ]          ║ "
+   echo " ║ -L --js-code   <js code>    => inject JS code from JS file [must be one line]                [ HTTP ]          ║ "
+   echo " ║ -G --js-keylogger           => inject JS keylogger in html pages                             [ HTTP ]          ║ "
    echo " ║ -M --map-lan   <nmap args>  => perform a nmap network scan from tornado !                                      ║ "
    echo " ║ usage. ./tornado.sh <options>                                                                                  ║ "
    echo " ║ eg. ./tornado.sh -t 192.168.1.1/24 --map-lan -F                                                                ║ "
@@ -211,7 +211,16 @@ cd output
 mkdir "${date}_output"
 
 if ! [[ $( ifconfig ) =~ "command not found" ]] ; then
-   myip=$(ifconfig $interface | grep inet | awk {'print $2 '} | awk NR==1)
+   distro=`awk '{print $1}' /etc/issue` # grab distribution -  Ubuntu or Kali
+   case $distro in
+       Kali)       myip=`ifconfig $interface | egrep -w "inet" | awk '{print $2}'`;;
+       Debian)     myip=`ifconfig $interface | egrep -w "inet" | awk '{print $2}'`;;
+       Mint)       myip=`ifconfig $interface | egrep -w "inet" | awk '{print $2}' | cut -d ':' -f2`;;
+       Ubuntu)     myip=`ifconfig $interface | egrep -w "inet" | awk {'print $2'} | cut -d ':' -f2`;;
+       Parrot)     myip=`ifconfig $interface | egrep -w "inet" | awk '{print $2}'`;;
+       BackBox)    myip=`ifconfig $interface | egrep -w "inet" | awk {'print $2'} | cut -d ':' -f2`;;
+       elementary) myip=`ifconfig $interface | egrep -w "inet" | cut -d ':' -f2 | cut -d 'B' -f1`;;
+   esac
 else
    myip=$(ip -d route | grep wlan0 | grep -e /24 -e /16 | awk {' print $10 '})
 fi
@@ -220,6 +229,8 @@ subnet=$(ip -d route | grep $interface | grep / | awk {'print $2 '})
 ############################################################################################################
 
 cd "${date}_output"
+echo -e "${red}█ Time $date"
+echo -e "${red}█ Distro $distro"
 echo -e "${red}█ Interface $interface"
 echo -e "█ Local IP $myip"
 echo -e "█ Gateway $gateway"
@@ -516,6 +527,8 @@ else
        iptables_burp
     elif [[ $mitmproxy == 'on' ]] ; then
        echo -e "${red}█ Activate mitmproxy mode "
+       kill $(fuser 443/tcp | cut -d ":" -f 2) 2> /dev/null 1> /dev/null
+       kill $(fuser 80/tcp | cut -d ":" -f 2) 2> /dev/null 1> /dev/null
        iptables_burp
     fi
     echo -e "${purp}█ echo 1 > /proc/sys/net/ipv4/ip_forward"
