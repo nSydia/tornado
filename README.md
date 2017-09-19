@@ -43,10 +43,10 @@ bash setup.sh
  ║ -x --burp                   => intercept captured traffic with burpsuite                                       ║ 
  ║ -X --mitmproxy              => intercept captured traffic with MITMproxy                                       ║ 
  ║ -H --hsts                   => intercept captured traffic with sslstrip+,dns2proxy                             ║ 
- ║ -w --mitmproxy-args         => customize mitmproxy performance [must be the last option when use]              ║ 
- ║ -l --js-url    <js URL>     => inject JS url in page content                                                   ║ 
- ║ -L --js-code   <js code>    => inject JS code from JS file in page content [must be one line]                  ║ 
- ║ -G --js-keylogger           => inject JS keylogger in html pages                                               ║ 
+ ║ -w --mitmproxy-args         => customize mitmproxy performance                                                 ║ 
+ ║ -l --js-url    <js URL>     => inject JS url in page content                                 [ HTTP ]          ║ 
+ ║ -L --js-code   <js code>    => inject JS code from JS file [must be one line]                [ HTTP ]          ║ 
+ ║ -G --js-keylogger           => inject JS keylogger in html pages                             [ HTTP ]          ║ 
  ║ -M --map-lan   <nmap args>  => perform a nmap network scan from tornado !                                      ║ 
  ║ usage. ./tornado.sh <options>                                                                                  ║ 
  ║ eg. ./tornado.sh -t 192.168.1.1/24 --map-lan -F                                                                ║ 
@@ -60,6 +60,9 @@ bash setup.sh
  ║ eg. ./tornado.sh -i wlan0 -t 192.168.1.5 -g 192.168.1.1 --burp                                                 ║ 
  █ eg. ./tornado.sh -i wlan0 -t 192.168.1.5 -g 192.168.1.1 --dnsspoof dnsfile.txt                                 █ 
  └════════════════════════════════════════════════════════════════════════════════════════════════════════════════┘ 
+┌─[root@parrot]─[~/tornado]
+└──╼ #
+
 
 ```
 ```
