@@ -95,16 +95,27 @@ if [[ $inpt =~ '-M' ]] || [[ $inpt =~ '--map-lan' ]] ; then
    if [[ -d .workspace ]] ; then rm -rf .workspace ; fi
    mkdir .workspace ; cd .workspace
    nmap -sn $target  > nmap.txt
-   cat nmap.txt | grep -e "Nmap scan"   | awk {' print $5 '} > ips.txt
+   cat nmap.txt | grep -e "report" | tr ' ' '\n' | grep '\.' | sed 's/(//g' | sed 's/)//g' > ips.txt
    cat nmap.txt | grep -e "MAC Address" | awk {' print $3 '} > macs.txt
    cat nmap.txt | grep -e "MAC Address" | awk {' print $4" "$5" "$6" "$7" "$8'} > vendors.txt
-   for i in $( cat ips.txt ) ; do
-      echo $i >> nmp.txt
-      nmap $i $args | grep -e "open" -e "\|" | grep -ve "Nmap" -e "latency" -e "   STATE" -e "MAC Address:" -e "nmap.org" >> nmp.txt
-   done
+   nmap -Pn -iL ips.txt $args |
+   while read line ; do
+      if [[ $line =~ "report" ]] ; then
+         echo $line | sed 's/Nmap scan report for //g'
+      else
+         echo "    $line"
+      fi
+   done | grep -ve "Nmap" -e "Please report any incorrect results" -e "Host is up" -e "Not shown" -e "PORT STATE SERVICE" -e "MAC" |
+   while read line ; do
+      if [[ $line =~ '(' ]] && [[ $line =~ $( head ips.txt -n 1 | cut -d "." -f 1 ) ]] ; then
+         echo $line | awk {' print $2 '} |  sed 's/(//g' | sed 's/)//g'
+      else
+        echo $line
+      fi
+   done | awk NF > nmp.txt
    x=1
    cat nmp.txt | while read i ; do
-      if [[ $i == $( cat ips.txt | awk NR==$x ) ]] && [[ $i != "" ]] ; then
+      if [[ $( cat ips.txt ) =~ "$i" ]] && [[ $i =~ $( head ips.txt -n 1 | cut -d "." -f 1 ) ]] ; then
          local_ip=$(ifconfig $interface | grep "inet " | awk {' print $2 '})
          mac_addr=$(ifconfig $interface | grep "ether" | awk {' print $2 '})
          if [[ $i =~ $local_ip ]] ; then
@@ -126,6 +137,7 @@ if [[ $inpt =~ '-M' ]] || [[ $inpt =~ '--map-lan' ]] ; then
          fi
       fi
    done
+   echo
    exit
 fi
 if [[ $( echo $inpt | grep -w '\-i' ) =~ '-i' ]] || [[ $inpt =~ '--interface' ]] ; then
