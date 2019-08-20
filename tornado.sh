@@ -17,9 +17,9 @@ echo -e '                          ██║   ██║   ██║██╔═
 echo -e '                          ██║   ╚██████╔╝██║  ██║██║ ╚████║██║  ██║'"${red}"'██████╔╝╚██████╔╝'"$white"
 echo -e '                          ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝'"${red}"'╚═════╝||╚═════╝ '"$white"
 echo -e '                           - Version 0.2 [CODED BY MAGDY MOUSTAFA]      '  "${red}||||       $white"
-echo -e '                           - github.com/rebellionil/tornado          '   "$red|__||||__|    $white"
-echo -e '                           - facebook.com/rebellionil                '   "$red++++++++++    $white"
-echo -e '                                                                     '   "$red||||||||||    $white"
+echo -e '                           - Guthub  : @reb311ion                     '   "$red|__||||__|    $white"
+echo -e '                           - Twitter : @reb311ion                     '   "$red++++++++++    $white"
+echo -e '                                                                      '   "$red||||||||||    $white"
 if [[ $1 == "-h" ]] || [[ $1 == "" ]] ; then
    echo -e "$blue"
    echo " ┌════════════════════════════════════════════════════════════════════════════════════════════════════════════════┐ "
